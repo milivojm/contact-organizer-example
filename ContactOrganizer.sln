@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.28306.52
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactOrganizer", "ContactOrganizer\ContactOrganizer.csproj", "{8140C1D9-C96E-487F-AA24-4B532607AF6A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactOrganizer.Data.SqlServer", "ContactOrganizer.Data.SqlServer\ContactOrganizer.Data.SqlServer.csproj", "{E3E29D12-B046-49C0-8DFD-6F969B5A5287}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContractOrganizer.Tests", "ContractOrganizer.Tests\ContractOrganizer.Tests.csproj", "{B49744E9-062F-4C91-A6D6-DB8F02B4BA3D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{8140C1D9-C96E-487F-AA24-4B532607AF6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8140C1D9-C96E-487F-AA24-4B532607AF6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8140C1D9-C96E-487F-AA24-4B532607AF6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3E29D12-B046-49C0-8DFD-6F969B5A5287}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3E29D12-B046-49C0-8DFD-6F969B5A5287}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3E29D12-B046-49C0-8DFD-6F969B5A5287}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3E29D12-B046-49C0-8DFD-6F969B5A5287}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B49744E9-062F-4C91-A6D6-DB8F02B4BA3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B49744E9-062F-4C91-A6D6-DB8F02B4BA3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B49744E9-062F-4C91-A6D6-DB8F02B4BA3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B49744E9-062F-4C91-A6D6-DB8F02B4BA3D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
