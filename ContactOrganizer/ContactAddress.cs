@@ -54,6 +54,11 @@ namespace ContactOrganizer
 
         public string Country { get; }
 
+        public string GetFullAddress()
+        {
+            return _fullAddress;
+        }
+
         private void SetFullAddress()
         {
             StringBuilder addressStringBuilder = new StringBuilder();
@@ -69,11 +74,8 @@ namespace ContactOrganizer
                 addressStringBuilder.AppendLine();
                 addressStringBuilder.Append(Country);
             }
-        }
 
-        public string FullAddress
-        {
-            get => _fullAddress;
+            _fullAddress = addressStringBuilder.ToString();
         }
     }
 }

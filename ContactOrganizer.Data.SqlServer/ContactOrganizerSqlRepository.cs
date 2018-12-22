@@ -7,31 +7,17 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace ContactOrganizer.Data.SqlServer
 {
     public class ContactOrganizerSqlRepository : DbContext, IContactOrganizerRepository
     {
-        private bool _aspNetCore;
-
-        public ContactOrganizerSqlRepository()
-        {
-            _aspNetCore = false;
-        }
-
         public ContactOrganizerSqlRepository(DbContextOptions<ContactOrganizerSqlRepository> options) : base(options)
         {
-            _aspNetCore = true;
         }
 
         public DbSet<Contact> Contacts { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!_aspNetCore)
-                optionsBuilder
-                    .UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=ContactOrganizer", providerOptions => providerOptions.CommandTimeout(60));
-        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -40,6 +26,7 @@ namespace ContactOrganizer.Data.SqlServer
             modelBuilder.Entity<Contact>().Property(c => c.LastName).HasField("_lastName").HasMaxLength(50).IsRequired();
             modelBuilder.Entity<Contact>().Property(c => c.TelephoneNumber).HasField("_telephoneNumber").HasMaxLength(15).IsRequired();
             modelBuilder.Entity<Contact>().OwnsOne<ContactAddress>("_contactAddress");
+            modelBuilder.Entity<Contact>().Property(c => c.FullAddress).HasColumnName("FullAddress").HasMaxLength(200);
             modelBuilder.Entity<Contact>().HasIndex(c => new { c.FirstName, c.LastName }).IsUnique();
             #endregion
 
@@ -48,7 +35,7 @@ namespace ContactOrganizer.Data.SqlServer
             modelBuilder.Entity<ContactAddress>().Property("City").HasColumnName("City").HasMaxLength(40).IsRequired();
             modelBuilder.Entity<ContactAddress>().Property("PostalCode").HasColumnName("PostalCode").HasMaxLength(20);
             modelBuilder.Entity<ContactAddress>().Property("Country").HasColumnName("Country").HasMaxLength(50);
-            modelBuilder.Entity<ContactAddress>().Property("FullAddress").HasField("_fullAddress").HasColumnName("FullAddress").HasMaxLength(200);
+            
             #endregion
         }
 
@@ -65,19 +52,51 @@ namespace ContactOrganizer.Data.SqlServer
             SaveChanges();
         }
 
-        public List<Contact> FindContacts(string firstName, string lastName, string telephoneNumber, string address, int takeFrom, int count, string orderByField, out int totalNumber)
+        public List<Contact> FindContacts(string firstName, string lastName, string telephoneNumber, string address, int takeFrom, int count, string sortExpression, out int totalNumber)
         {
-            SqlParameter numberOfRowsParameter = new SqlParameter
-            {
-                ParameterName = "totalNumber",
-                DbType = System.Data.DbType.Int32,
-                Direction = System.Data.ParameterDirection.Output
-            };
+            string orderByColumn = "FirstName";
 
-            string sql = $"exec FindContacts @firstName, @lastName, @telephoneNumber, @address, @from, @count, @orderByField, @totalNumber OUT";
-            List<Contact> result = Contacts.FromSql(sql, firstName, lastName, telephoneNumber, address, takeFrom, count, orderByField, numberOfRowsParameter).ToList();
-            totalNumber = (int)numberOfRowsParameter.Value;
-            return result;
+            Regex sortRegex = new Regex(@"^(?<sortColumn>FirstName|LastName|TelephoneNumber|FullAddress)$");
+            Match match = sortRegex.Match(sortExpression);
+
+            if (match.Success)
+            {
+                orderByColumn = match.Groups["sortColumn"].Value;                
+            }
+
+            var query = Contacts.AsQueryable();
+
+            if (!string.IsNullOrEmpty(firstName))
+                query = query.Where(c => c.FirstName.StartsWith(firstName));
+
+            if (!string.IsNullOrEmpty(lastName))
+                query = query.Where(c => c.LastName.StartsWith(lastName));
+
+            if (!string.IsNullOrEmpty(telephoneNumber))
+                query = query.Where(c => c.TelephoneNumber.StartsWith(telephoneNumber));
+
+            if (!string.IsNullOrEmpty(address))
+                query = query.Where(c => c.FullAddress.Contains(address));
+
+            totalNumber = query.Count();
+            
+            switch (orderByColumn)
+            {
+                case "FirstName":
+                    query = query.OrderBy(c => c.FirstName);
+                    break;
+                case "LastName":
+                    query = query.OrderBy(c => c.LastName);
+                    break;
+                case "TelephoneNumber":
+                    query = query.OrderBy(c => c.TelephoneNumber);
+                    break;
+                case "FullAddress":
+                    query = query.OrderBy(c => c.FullAddress);
+                    break;
+            }
+
+            return query.Skip(takeFrom).Take(count).ToList();
         }
 
         public Contact GetContactById(Guid contactId)

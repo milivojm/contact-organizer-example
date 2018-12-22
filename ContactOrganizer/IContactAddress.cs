@@ -6,5 +6,6 @@
         string Country { get; }
         string PostalCode { get; }
         string StreetAndNumber { get; }
+        string GetFullAddress();
     }
 }

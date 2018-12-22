@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using ContactOrganizer;
 using ContactOrganizer.Data.SqlServer;
 using ContactOrganizer.Infrastructure;
@@ -17,12 +18,6 @@ namespace ContractOrganizer.Tests
             DbContextOptionsBuilder<ContactOrganizerSqlRepository> optionsBuilder = new DbContextOptionsBuilder<ContactOrganizerSqlRepository>();
             optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=ContactOrganizer", providerOptions => providerOptions.CommandTimeout(60));
             _contactOrganizerSqlRepository = new ContactOrganizerSqlRepository(optionsBuilder.Options);
-        }
-
-        [TestCleanup]
-        public void Cleanup()
-        {
-            _contactOrganizerSqlRepository.RemoveAllContacts();
         }
 
         [TestMethod]
@@ -57,6 +52,36 @@ namespace ContractOrganizer.Tests
             Contact contactFromDb = _contactOrganizerSqlRepository.GetContactById(id);
             _contactOrganizerSqlRepository.DeleteContact(contactFromDb.Id);
             Assert.ThrowsException<InvalidOperationException>(() => _contactOrganizerSqlRepository.GetContactById(id));
+        }
+
+        [TestMethod]
+        public void TestFindFirstName()
+        {
+            int totalNumber;
+            
+            List<Contact> result = _contactOrganizerSqlRepository.FindContacts("James", null, null, null, 0, 1, "", out totalNumber);
+            Assert.AreEqual(1, totalNumber);
+            Assert.AreEqual(1, result.Count);
+        }
+
+        [TestMethod]
+        public void TestFindLastName()
+        {
+            int totalNumber;
+
+            List<Contact> result = _contactOrganizerSqlRepository.FindContacts(null, "Keita", null, null, 0, 1, "", out totalNumber);
+            Assert.AreEqual(1, totalNumber);
+            Assert.AreEqual(1, result.Count);
+        }
+
+        [TestMethod]
+        public void TestFindAddress()
+        {
+            int totalNumber;
+
+            List<Contact> result = _contactOrganizerSqlRepository.FindContacts(null, null, null, "Liverpool", 0, 5, "", out totalNumber);
+            Assert.AreEqual(11, totalNumber);
+            Assert.AreEqual(5, result.Count);
         }
     }
 }

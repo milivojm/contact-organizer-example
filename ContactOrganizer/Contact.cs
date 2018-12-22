@@ -89,6 +89,10 @@ namespace ContactOrganizer
             get => _contactAddress;
         }
 
+        public string FullAddress
+        {
+            get; private set;
+        }
 
         /// <summary>
         /// Updates contact details.

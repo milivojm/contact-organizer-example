@@ -3,7 +3,9 @@ using ContactOrganizer.Infrastructure;
 using FluentValidation.Results;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace ContactOrganizer
 {
@@ -88,12 +90,12 @@ namespace ContactOrganizer
         /// <param name="address">Address to search for.</param>
         /// <param name="takeFrom">Contact result row number to start list from. Useful in paginations. </param>
         /// <param name="count">Number of contacts to retreive.</param>
-        /// <param name="orderByField">Contact property to order results by.</param>
+        /// <param name="sortExpression">Contact property to order results by.</param>
         /// <param name="totalNumber">Returns total number of contacts in the organizer.</param>
         /// <returns></returns>
-        public List<Contact> FindContacts(string firstName, string lastName, string telephoneNumber, string address, int takeFrom, int count, string orderByField, out int totalNumber)
+        public List<Contact> FindContacts(string firstName, string lastName, string telephoneNumber, string address, int takeFrom, int count, string sortExpression, out int totalNumber)
         {
-            return _contactOrganizerRepository.FindContacts(firstName, lastName, telephoneNumber, address, takeFrom, count, orderByField, out totalNumber);
+            return _contactOrganizerRepository.FindContacts(firstName, lastName, telephoneNumber, address, takeFrom, count, sortExpression, out totalNumber);
         }
     }
 }

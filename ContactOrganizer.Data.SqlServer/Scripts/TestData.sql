@@ -1,6 +1,8 @@
 ﻿use ContactOrganizer
 go
 
+delete Contacts;
+
 insert into Contacts (
 	Id,
 	FirstName,
@@ -222,4 +224,4 @@ insert into Contacts (
 );
 
 UPDATE Contacts
-SET FullAddress = CONCAT(StreetNumber,'\n',PostalCode,' ',City, '\n', Country)
+SET FullAddress = CONCAT(StreetNumber,'\n',PostalCode,' ',City, '\n', Country);
