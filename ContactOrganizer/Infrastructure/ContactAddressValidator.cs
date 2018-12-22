@@ -7,8 +7,10 @@ namespace ContactOrganizer.Infrastructure
     {
         public ContactAddressValidator()
         {
-            RuleFor(address => address.StreetAndNumber).NotEmpty();
-            RuleFor(address => address.Country).NotEmpty();
+            RuleFor(address => address.StreetAndNumber).NotEmpty().MaximumLength(80);
+            RuleFor(address => address.City).NotEmpty().MaximumLength(40);
+            RuleFor(address => address.PostalCode).MaximumLength(20);
+            RuleFor(address => address.Country).MaximumLength(50);
         }
     }
 }

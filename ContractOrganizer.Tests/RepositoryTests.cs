@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ContractOrganizer.Tests
-{
+{    
     [TestClass]
     public class RepositoryTests
     {
@@ -18,6 +18,12 @@ namespace ContractOrganizer.Tests
             DbContextOptionsBuilder<ContactOrganizerSqlRepository> optionsBuilder = new DbContextOptionsBuilder<ContactOrganizerSqlRepository>();
             optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=ContactOrganizer", providerOptions => providerOptions.CommandTimeout(60));
             _contactOrganizerSqlRepository = new ContactOrganizerSqlRepository(optionsBuilder.Options);
+        }
+
+        [TestInitialize]
+        public void Init()
+        {
+            _contactOrganizerSqlRepository.RemoveAllContacts();
         }
 
         [TestMethod]

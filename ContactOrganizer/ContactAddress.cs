@@ -7,7 +7,6 @@ namespace ContactOrganizer
     {
         private string _streetAndNumber;
         private string _city;
-        private string _fullAddress;
 
         public ContactAddress(string streetAndNumber, string city, string postalCode, string country)
         {
@@ -15,7 +14,6 @@ namespace ContactOrganizer
             City = city;
             PostalCode = postalCode;
             Country = country;
-            SetFullAddress();
         }
 
         public ContactAddress(IContactAddress contactAddress)
@@ -56,11 +54,6 @@ namespace ContactOrganizer
 
         public string GetFullAddress()
         {
-            return _fullAddress;
-        }
-
-        private void SetFullAddress()
-        {
             StringBuilder addressStringBuilder = new StringBuilder();
             addressStringBuilder.AppendLine(StreetAndNumber);
 
@@ -75,7 +68,12 @@ namespace ContactOrganizer
                 addressStringBuilder.Append(Country);
             }
 
-            _fullAddress = addressStringBuilder.ToString();
+            return  addressStringBuilder.ToString();
+        }
+
+        private void SetFullAddress()
+        {
+            
         }
     }
 }

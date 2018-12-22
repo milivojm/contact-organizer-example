@@ -1,8 +1,8 @@
-﻿using ContactOrganizer.Events;
-using ContactOrganizer.Infrastructure;
+﻿using ContactOrganizer.Infrastructure;
 using FluentValidation.Results;
 using System;
 using System.Collections.Generic;
+using FluentValidation;
 using System.Linq.Expressions;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -12,38 +12,40 @@ namespace ContactOrganizer
     /// <summary>
     /// Facade class into this small application.
     /// </summary>
+    /// <remarks>This small app uses Hexagonal architecture (Ports and Adapters) principle. For more info see <see cref="https://blog.ndepend.com/hexagonal-architecture/"/></remarks>
     public class ContactOrganizerService
     {
         private IContactOrganizerRepository _contactOrganizerRepository;
-        private readonly INotificationHandler _notificationHandler;
 
-        public ContactOrganizerService(IContactOrganizerRepository contactOrganizerRepository, INotificationHandler notificationHandler)
+        public ContactOrganizerService(IContactOrganizerRepository contactOrganizerRepository)
         {
             _contactOrganizerRepository = contactOrganizerRepository ?? throw new ArgumentNullException(nameof(contactOrganizerRepository));
-            _notificationHandler = notificationHandler ?? throw new ArgumentNullException(nameof(notificationHandler));
         }
 
         /// <summary>
         /// Creates a new contact and saves it to external store.
         /// </summary>
         /// <param name="contactDetails">Contact details value object.</param>
-        public void CreateNewContact(IContactDetails contactDetails)
+        /// <returns>New Contact created.</returns>
+        public Contact CreateNewContact(IContactDetails contactDetails)
         {
             ContactDetailsValidator contactDetailsValidator = new ContactDetailsValidator();
-            ValidationResult validationResult = contactDetailsValidator.Validate(contactDetails);
+            contactDetailsValidator.ValidateAndThrow(contactDetails);
 
-            if (validationResult.IsValid)
-            {
-                ContactAddress contactAddress = new ContactAddress(contactDetails.Address);
-                Contact newContact = new Contact(Guid.NewGuid(), contactDetails.FirstName, contactDetails.LastName, contactDetails.TelephoneNumber, contactAddress);
+            ContactAddress contactAddress = new ContactAddress(contactDetails.Address);
+            Contact newContact = new Contact(Guid.NewGuid(), contactDetails.FirstName, contactDetails.LastName, contactDetails.TelephoneNumber, contactAddress);
+            _contactOrganizerRepository.CreateNewContact(newContact);
+            return newContact;
+        }
 
-                _contactOrganizerRepository.CreateNewContact(newContact);
-                _notificationHandler.HandleEvent(new NewContactCreated(newContact));
-            }
-            else
-            {
-                _notificationHandler.HandleValidationError(validationResult);
-            }
+        /// <summary>
+        /// Returns a contact by Id.
+        /// </summary>
+        /// <param name="id">Contact Id.</param>
+        /// <returns>Contact with the Id requested.</returns>
+        public Contact GetContactById(Guid id)
+        {
+            return _contactOrganizerRepository.GetContactById(id);
         }
 
         /// <summary>
@@ -51,24 +53,17 @@ namespace ContactOrganizer
         /// </summary>
         /// <param name="contactId">Contact unique ID.</param>
         /// <param name="contactDetails">Contact details value object.</param>
-        public void UpdateContactDetails(Guid contactId, IContactDetails contactDetails)
+        public Contact UpdateContactDetails(Guid contactId, IContactDetails contactDetails)
         {
             ContactDetailsValidator contactDetailsValidator = new ContactDetailsValidator();
-            ValidationResult validationResult = contactDetailsValidator.Validate(contactDetails);
+            contactDetailsValidator.ValidateAndThrow(contactDetails);
 
-            if (validationResult.IsValid)
-            {
-                Contact contact = _contactOrganizerRepository.GetContactById(contactId);
-                ContactAddress contactAddress = new ContactAddress(contactDetails.Address);
+            Contact contact = _contactOrganizerRepository.GetContactById(contactId);
+            ContactAddress contactAddress = new ContactAddress(contactDetails.Address);
+            contact.UpdateDetails(contactDetails.FirstName, contactDetails.LastName, contactDetails.TelephoneNumber, contactAddress);
+            _contactOrganizerRepository.UpdateContactDetails(contact);
 
-                contact.UpdateDetails(contactDetails.FirstName, contactDetails.LastName, contactDetails.TelephoneNumber, contactAddress);
-                _contactOrganizerRepository.UpdateContactDetails(contact);
-                _notificationHandler.HandleEvent(new ContactDetailsUpdated(contact));
-            }
-            else
-            {
-                _notificationHandler.HandleValidationError(validationResult);
-            }
+            return contact;
         }
 
         /// <summary>
@@ -78,7 +73,6 @@ namespace ContactOrganizer
         public void DeleteContact(Guid contactId)
         {
             _contactOrganizerRepository.DeleteContact(contactId);
-            _notificationHandler.HandleEvent(new ContactDeleted(contactId));
         }
 
         /// <summary>

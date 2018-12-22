@@ -9,8 +9,8 @@ namespace ContactOrganizer.Infrastructure
     {
         public ContactDetailsValidator()
         {
-            RuleFor(contact => contact.FirstName).NotEmpty();
-            RuleFor(contact => contact.LastName).NotEmpty();
+            RuleFor(contact => contact.FirstName).NotEmpty().MaximumLength(50);
+            RuleFor(contact => contact.LastName).NotEmpty().MaximumLength(50);
             RuleFor(contact => contact.TelephoneNumber).NotEmpty();
             RuleFor(contact => contact.TelephoneNumber).Matches(Contact.TelephoneNumberRegex);
             RuleFor(contact => contact.Address).SetValidator(new ContactAddressValidator());

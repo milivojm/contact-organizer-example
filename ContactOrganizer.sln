@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28306.52
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactOrganizer", "ContactOrganizer\ContactOrganizer.csproj", "{8140C1D9-C96E-487F-AA24-4B532607AF6A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContactOrganizer", "ContactOrganizer\ContactOrganizer.csproj", "{8140C1D9-C96E-487F-AA24-4B532607AF6A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactOrganizer.Data.SqlServer", "ContactOrganizer.Data.SqlServer\ContactOrganizer.Data.SqlServer.csproj", "{E3E29D12-B046-49C0-8DFD-6F969B5A5287}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContactOrganizer.Data.SqlServer", "ContactOrganizer.Data.SqlServer\ContactOrganizer.Data.SqlServer.csproj", "{E3E29D12-B046-49C0-8DFD-6F969B5A5287}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContractOrganizer.Tests", "ContractOrganizer.Tests\ContractOrganizer.Tests.csproj", "{B49744E9-062F-4C91-A6D6-DB8F02B4BA3D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContractOrganizer.Tests", "ContractOrganizer.Tests\ContractOrganizer.Tests.csproj", "{B49744E9-062F-4C91-A6D6-DB8F02B4BA3D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactOrganizer.Web", "ContactOrganizer.Web\ContactOrganizer.Web.csproj", "{5C91E815-177A-4837-B8DF-B4EB5F25DE6A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{B49744E9-062F-4C91-A6D6-DB8F02B4BA3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B49744E9-062F-4C91-A6D6-DB8F02B4BA3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B49744E9-062F-4C91-A6D6-DB8F02B4BA3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C91E815-177A-4837-B8DF-B4EB5F25DE6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C91E815-177A-4837-B8DF-B4EB5F25DE6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C91E815-177A-4837-B8DF-B4EB5F25DE6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C91E815-177A-4837-B8DF-B4EB5F25DE6A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

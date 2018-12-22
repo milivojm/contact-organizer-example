@@ -12,18 +12,19 @@ namespace ContactOrganizer
         private string _firstName;
         private string _lastName;
         private string _telephoneNumber;
-        private ContactAddress _contactAddress;
+        private IContactAddress _contactAddress;
 
         // EF Core limitations
         private Contact() { }
 
-        public Contact(Guid id, string firstName, string lastName, string telephoneNumber, ContactAddress contactAddress)
+        public Contact(Guid id, string firstName, string lastName, string telephoneNumber, IContactAddress contactAddress)
         {
             Id = id;
             FirstName = firstName;
             LastName = lastName;
             TelephoneNumber = telephoneNumber;
             _contactAddress = contactAddress;
+            FullAddress = contactAddress.GetFullAddress();
         }
 
         /// <summary>
@@ -101,12 +102,13 @@ namespace ContactOrganizer
         /// <param name="lastName">Contact last name.</param>
         /// <param name="telephoneNumber">Contact telephone number.</param>
         /// <param name="contactAddress">Contact address.</param>
-        public void UpdateDetails(string firstName, string lastName, string telephoneNumber, ContactAddress contactAddress)
+        public void UpdateDetails(string firstName, string lastName, string telephoneNumber, IContactAddress contactAddress)
         {
             FirstName = firstName;
             LastName = lastName;
             TelephoneNumber = telephoneNumber;
             _contactAddress = contactAddress;
+            FullAddress = contactAddress.GetFullAddress();
         }
     }
 }
