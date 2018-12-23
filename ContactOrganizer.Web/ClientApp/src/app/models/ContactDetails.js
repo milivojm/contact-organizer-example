@@ -1,7 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var ContactAddress_1 = require("./ContactAddress");
 var ContactDetails = /** @class */ (function () {
     function ContactDetails() {
+        this.address = new ContactAddress_1.ContactAddress();
     }
     ContactDetails.prototype.getOneLineAddress = function () {
         if (this.fullAddress == undefined) {

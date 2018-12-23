@@ -6,20 +6,25 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SearchContactsComponent } from './search-contacts/search-contacts.component';
 import { NewContactComponent } from './new-contact/new-contact.component';
+import { AppModalComponent } from './app-modal/app-modal.component';
+import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
     AppComponent,
     SearchContactsComponent,
-    NewContactComponent
+    NewContactComponent,
+    AppModalComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgbModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [NgbActiveModal],
+  bootstrap: [AppComponent],
+  entryComponents: [AppModalComponent]
 })
 export class AppModule { }

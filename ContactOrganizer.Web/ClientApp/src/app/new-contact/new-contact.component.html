@@ -1,3 +1,35 @@
-<p>
-  new-contact works!
-</p>
+<h2>
+  Add new contact
+</h2>
+
+<form #contactForm="ngForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="firstName">First name</label>
+    <input [(ngModel)]="model.firstName" type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter first name">
+  </div>
+  <div class="form-group">
+    <label for="lastName">Last name</label>
+    <input [(ngModel)]="model.lastName" type="text" class="form-control" id="lastName" name="lastName" placeholder="Enter last name">
+  </div>
+  <div class="form-group">
+    <label for="telephoneNumber">Telephone number</label>
+    <input [(ngModel)]="model.telephoneNumber" type="tel" class="form-control" id="telephoneNumber" name="telephoneNumber" placeholder="Format like +385989059120">
+  </div>
+  <div class="form-group">
+    <label for="streetAndNumber">Street name and number</label>
+    <input [(ngModel)]="model.streetAndNumber" type="text" class="form-control" id="streetAndNumber" name="streetAndNumber" placeholder="Enter street name and number">
+  </div>
+  <div class="form-group">
+    <label for="city">City</label>
+    <input [(ngModel)]="model.city" type="text" class="form-control" id="city" name="city" placeholder="Enter city name">
+  </div>
+  <div class="form-group">
+    <label for="postalCode">Postal code</label>
+    <input [(ngModel)]="model.postalCode" type="text" class="form-control" id="postalCode" name="postalCode" placeholder="Enter postal code">
+  </div>
+  <div class="form-group">
+    <label for="country">Country</label>
+    <input [(ngModel)]="model.country" type="text" class="form-control" id="country" name="country" placeholder="Enter country name">
+  </div>
+  <button type="submit" class="btn btn-primary" [disabled]="!contactForm.form.valid">Create</button>
+</form>

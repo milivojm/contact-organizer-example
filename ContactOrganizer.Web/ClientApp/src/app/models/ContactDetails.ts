@@ -8,6 +8,10 @@ export class ContactDetails {
   fullAddress: string;
   address: ContactAddress;
 
+  constructor() {
+    this.address = new ContactAddress();
+  }
+
   getOneLineAddress() {
     if (this.fullAddress == undefined) {
       return '';
