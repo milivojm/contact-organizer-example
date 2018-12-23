@@ -73,7 +73,7 @@ namespace ContactOrganizer.Data.SqlServer
                 query = query.Where(c => c.LastName.StartsWith(lastName));
 
             if (!string.IsNullOrEmpty(telephoneNumber))
-                query = query.Where(c => c.TelephoneNumber.StartsWith(telephoneNumber));
+                query = query.Where(c => c.TelephoneNumber.Contains(telephoneNumber));
 
             if (!string.IsNullOrEmpty(address))
                 query = query.Where(c => c.FullAddress.Contains(address));

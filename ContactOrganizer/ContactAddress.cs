@@ -16,14 +16,6 @@ namespace ContactOrganizer
             Country = country;
         }
 
-        public ContactAddress(IContactAddress contactAddress)
-        {
-            StreetAndNumber = contactAddress.StreetAndNumber;
-            City = contactAddress.City;
-            PostalCode = contactAddress.PostalCode;
-            Country = contactAddress.Country;
-        }
-
         public string StreetAndNumber
         {
             get => _streetAndNumber;

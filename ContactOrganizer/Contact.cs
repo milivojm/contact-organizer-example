@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace ContactOrganizer
 {
-    public class Contact : IContactDetails
+    public class Contact
     {
         public static readonly string TelephoneNumberRegex = @"^\+\d{10,12}$";
         private string _firstName;
@@ -90,6 +90,9 @@ namespace ContactOrganizer
             get => _contactAddress;
         }
 
+        /// <summary>
+        /// Additional field to speed up searching contacts over address.
+        /// </summary>
         public string FullAddress
         {
             get; private set;

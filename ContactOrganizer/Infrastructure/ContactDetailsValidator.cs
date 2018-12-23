@@ -13,7 +13,10 @@ namespace ContactOrganizer.Infrastructure
             RuleFor(contact => contact.LastName).NotEmpty().MaximumLength(50);
             RuleFor(contact => contact.TelephoneNumber).NotEmpty();
             RuleFor(contact => contact.TelephoneNumber).Matches(Contact.TelephoneNumberRegex);
-            RuleFor(contact => contact.Address).SetValidator(new ContactAddressValidator());
+            RuleFor(contact => contact.StreetAndNumber).NotEmpty().MaximumLength(80);
+            RuleFor(contact => contact.City).NotEmpty().MaximumLength(40);
+            RuleFor(contact => contact.PostalCode).MaximumLength(20);
+            RuleFor(contact => contact.Country).MaximumLength(50);
         }
     }
 }

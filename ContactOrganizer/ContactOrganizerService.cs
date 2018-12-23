@@ -32,7 +32,7 @@ namespace ContactOrganizer
             ContactDetailsValidator contactDetailsValidator = new ContactDetailsValidator();
             contactDetailsValidator.ValidateAndThrow(contactDetails);
 
-            ContactAddress contactAddress = new ContactAddress(contactDetails.Address);
+            ContactAddress contactAddress = new ContactAddress(contactDetails.StreetAndNumber, contactDetails.City, contactDetails.PostalCode, contactDetails.Country);
             Contact newContact = new Contact(Guid.NewGuid(), contactDetails.FirstName, contactDetails.LastName, contactDetails.TelephoneNumber, contactAddress);
             _contactOrganizerRepository.CreateNewContact(newContact);
             return newContact;
@@ -59,7 +59,7 @@ namespace ContactOrganizer
             contactDetailsValidator.ValidateAndThrow(contactDetails);
 
             Contact contact = _contactOrganizerRepository.GetContactById(contactId);
-            ContactAddress contactAddress = new ContactAddress(contactDetails.Address);
+            ContactAddress contactAddress = new ContactAddress(contactDetails.StreetAndNumber, contactDetails.City, contactDetails.PostalCode, contactDetails.Country);
             contact.UpdateDetails(contactDetails.FirstName, contactDetails.LastName, contactDetails.TelephoneNumber, contactAddress);
             _contactOrganizerRepository.UpdateContactDetails(contact);
 

@@ -63,9 +63,8 @@ namespace ContractOrganizer.Tests
         [TestMethod]
         public void TestFindFirstName()
         {
-            int totalNumber;
-            
-            List<Contact> result = _contactOrganizerSqlRepository.FindContacts("James", null, null, null, 0, 1, "", out totalNumber);
+
+            List<Contact> result = _contactOrganizerSqlRepository.FindContacts("James", null, null, null, 0, 1, "", out int totalNumber);
             Assert.AreEqual(1, totalNumber);
             Assert.AreEqual(1, result.Count);
         }
@@ -73,9 +72,8 @@ namespace ContractOrganizer.Tests
         [TestMethod]
         public void TestFindLastName()
         {
-            int totalNumber;
 
-            List<Contact> result = _contactOrganizerSqlRepository.FindContacts(null, "Keita", null, null, 0, 1, "", out totalNumber);
+            List<Contact> result = _contactOrganizerSqlRepository.FindContacts(null, "Keita", null, null, 0, 1, "", out int totalNumber);
             Assert.AreEqual(1, totalNumber);
             Assert.AreEqual(1, result.Count);
         }
@@ -83,9 +81,8 @@ namespace ContractOrganizer.Tests
         [TestMethod]
         public void TestFindAddress()
         {
-            int totalNumber;
 
-            List<Contact> result = _contactOrganizerSqlRepository.FindContacts(null, null, null, "Liverpool", 0, 5, "", out totalNumber);
+            List<Contact> result = _contactOrganizerSqlRepository.FindContacts(null, null, null, "Liverpool", 0, 5, "", out int totalNumber);
             Assert.AreEqual(11, totalNumber);
             Assert.AreEqual(5, result.Count);
         }

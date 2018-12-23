@@ -32,6 +32,7 @@ namespace ContactOrganizer.Web.Controllers
             return new SearchContactsModel()
             {                
                 TotalRows = totalRows,
+                StartFrom = startFrom,
                 Result = contacts
             };
         }
