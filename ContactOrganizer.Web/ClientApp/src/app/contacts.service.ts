@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { CreateContactModel } from './models/CreateContactModel';
+import { ChangeContactModel } from './models/ChangeContactModel';
 import { ContactDetails } from './models/ContactDetails';
 import { Observable } from 'rxjs';
 import { ValidationMessage } from './models/ValidationMessage';
@@ -16,8 +16,13 @@ export class ContactsService {
     return this.httpClient.get(queryUrl);    
   }
 
-  createContact(model: CreateContactModel): Observable<ContactDetails | ValidationMessage> {
+  createContact(model: ChangeContactModel): Observable<ContactDetails | ValidationMessage> {
     let postUrl = 'api/contacts/create';
     return this.httpClient.post<ContactDetails>(postUrl, model);
+  }
+
+  deleteContact(id: string) {
+    let deleteUrl = `api/contacts/delete/${id}`;
+    return this.httpClient.delete(deleteUrl);
   }
 }

@@ -1,4 +1,4 @@
-export class CreateContactModel {
+export class ChangeContactModel {
   firstName: string;
   lastName: string;
   telephoneNumber: string;

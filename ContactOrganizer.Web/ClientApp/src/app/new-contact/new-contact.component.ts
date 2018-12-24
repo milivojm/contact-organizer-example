@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { CreateContactModel } from '../models/CreateContactModel';
+import { ChangeContactModel } from '../models/ChangeContactModel';
 import { ContactsService } from '../contacts.service';
 import { ValidationMessage } from '../models/ValidationMessage';
 import { AppModalComponent } from '../app-modal/app-modal.component';
@@ -13,11 +13,11 @@ import { AppModalComponent } from '../app-modal/app-modal.component';
 })
 
 export class NewContactComponent implements OnInit {
-  model: CreateContactModel;
+  model: ChangeContactModel;
   errorList: ValidationMessage[];
 
   constructor(private service: ContactsService, private router: Router, private modalService: NgbModal) {
-    this.model = new CreateContactModel();
+    this.model = new ChangeContactModel();
     this.errorList = [];
   }
 
@@ -26,7 +26,7 @@ export class NewContactComponent implements OnInit {
 
   onSubmit() {
     this.service.createContact(this.model).subscribe(
-      newContact => this.router.navigate(['searchContacts']),
+      _newContact => this.router.navigate(['searchContacts']),
       response => {
         this.errorList = response.error.map(e => new ValidationMessage(e.propertyName, e.errorMessage));
         const modal = this.modalService.open(AppModalComponent);

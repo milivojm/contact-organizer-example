@@ -41,6 +41,7 @@ export class SearchContactsComponent implements OnInit {
 
       this.model.result = data.result.map(d => {
         let contactDetails = new ContactDetails();
+        contactDetails.id = d.id;
         contactDetails.firstName = d.firstName;
         contactDetails.lastName = d.lastName;
         contactDetails.fullAddress = d.fullAddress;
@@ -84,5 +85,14 @@ export class SearchContactsComponent implements OnInit {
   onResetFilter() {
     this.resetFilter();
     this.getContacts();
+  }
+
+  onDelete(id: string) {
+    if (confirm('Are you sure you want to delete a contact?')) {
+      this.contactsService.deleteContact(id).subscribe(
+        () => { this.getContacts(); },
+        errorResponse => console.log(errorResponse)
+      );
+    }
   }
 }

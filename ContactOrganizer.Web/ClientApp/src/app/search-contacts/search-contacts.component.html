@@ -26,7 +26,7 @@
       <td>{{contact.telephoneNumber}}</td>
       <td>{{contact.getOneLineAddress()}}</td>
       <td><button class="btn btn-link">Edit</button></td>
-      <td><button class="btn btn-link">Delete</button></td>
+      <td><button class="btn btn-link" (click)="onDelete(contact.id)">Delete</button></td>
     </tr>
   </tbody>
 </table>

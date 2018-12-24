@@ -26,9 +26,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\models\ChangeContactModel.ts" />
     <None Remove="ClientApp\src\app\models\ContactAddress.ts" />
     <None Remove="ClientApp\src\app\models\ContactDetails.ts" />
-    <None Remove="ClientApp\src\app\models\CreateContactModel.ts" />
     <None Remove="ClientApp\src\app\models\SearchContactsModel.ts" />
     <None Remove="ClientApp\src\app\models\ValidationMessage.ts" />
   </ItemGroup>
@@ -40,7 +40,7 @@
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\models\ContactAddress.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\ContactDetails.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\models\CreateContactModel.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\ChangeContactModel.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\SearchContactsModel.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\ValidationMessage.ts" />
   </ItemGroup>
