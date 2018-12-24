@@ -13,7 +13,8 @@
   </div>
   <div class="form-group">
     <label for="telephoneNumber">Telephone number</label>
-    <input [(ngModel)]="model.telephoneNumber" type="tel" class="form-control" id="telephoneNumber" name="telephoneNumber" placeholder="Format like +385989059120">
+    <input [(ngModel)]="model.telephoneNumber" type="tel" class="form-control" id="telephoneNumber" name="telephoneNumber" placeholder="Format like +385XXXXXXXX" aria-describedby="telephoneHelpBlock">
+    <small id="telephoneHelpBlock" class="form-text text-muted">Telephone number must start with a plus sign and have between 10 and 12 digits. Spaces and other characters are not allowed.</small>
   </div>
   <div class="form-group">
     <label for="streetAndNumber">Street name and number</label>
