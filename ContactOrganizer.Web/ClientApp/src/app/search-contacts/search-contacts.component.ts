@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ContactDetails } from '../models/ContactDetails';
 import { ContactsService } from '../contacts.service';
 import { SearchContactsModel } from '../models/SearchContactsModel';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search-contacts',
@@ -18,7 +19,7 @@ export class SearchContactsComponent implements OnInit {
   startFrom: number;
   readonly pageSize = 5;
 
-  constructor(private contactsService: ContactsService) {
+  constructor(private contactsService: ContactsService, private router: Router) {
     this.model = new SearchContactsModel();
     this.model.result = [];
     this.resetFilter();
@@ -94,5 +95,9 @@ export class SearchContactsComponent implements OnInit {
         errorResponse => console.log(errorResponse)
       );
     }
+  }
+
+  onUpdate(id: string) {
+    this.router.navigate(['updateContact', id]);
   }
 }

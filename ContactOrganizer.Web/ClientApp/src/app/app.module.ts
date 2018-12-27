@@ -8,13 +8,15 @@ import { SearchContactsComponent } from './search-contacts/search-contacts.compo
 import { NewContactComponent } from './new-contact/new-contact.component';
 import { AppModalComponent } from './app-modal/app-modal.component';
 import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { UpdateContactComponent } from './update-contact/update-contact.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SearchContactsComponent,
     NewContactComponent,
-    AppModalComponent
+    AppModalComponent,
+    UpdateContactComponent
   ],
   imports: [
     BrowserModule,
