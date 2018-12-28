@@ -5,6 +5,9 @@ using System.Text;
 
 namespace ContactOrganizer.Infrastructure
 {
+    /// <summary>
+    /// Fluent validation of Contact objects.
+    /// </summary>
     public class ContactDetailsValidator : AbstractValidator<IContactDetails>
     {
         public ContactDetailsValidator()

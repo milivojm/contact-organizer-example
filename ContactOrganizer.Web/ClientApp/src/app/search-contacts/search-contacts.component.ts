@@ -18,6 +18,7 @@ export class SearchContactsComponent implements OnInit {
   sortByColumn: string;
   startFrom: number;
   readonly pageSize = 5;
+  activeSortByColumn: Element;
 
   constructor(private contactsService: ContactsService, private router: Router) {
     this.model = new SearchContactsModel();
@@ -99,5 +100,19 @@ export class SearchContactsComponent implements OnInit {
 
   onUpdate(id: string) {
     this.router.navigate(['updateContact', id]);
+  }
+
+  onSort(sortBy: string, event: MouseEvent) {
+    if (this.activeSortByColumn != undefined) {
+      this.activeSortByColumn.classList.remove('active');
+    }
+
+    this.activeSortByColumn = event.target as Element;
+    if (!this.activeSortByColumn.classList.contains('active'))
+      this.activeSortByColumn.classList.add('active');
+
+    this.sortByColumn = sortBy;
+    this.getContacts();
+    event.preventDefault();
   }
 }

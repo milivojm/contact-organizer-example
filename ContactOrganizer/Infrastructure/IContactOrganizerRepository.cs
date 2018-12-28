@@ -4,6 +4,9 @@ using System.Linq.Expressions;
 
 namespace ContactOrganizer.Infrastructure
 {
+    /// <summary>
+    /// Interface (Port!) to any data repository. See repository pattern for more details.
+    /// </summary>
     public interface IContactOrganizerRepository
     {
         void CreateNewContact(Contact newContact);

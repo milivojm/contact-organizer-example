@@ -6,6 +6,9 @@ using System.Text.RegularExpressions;
 
 namespace ContactOrganizer
 {
+    /// <summary>
+    /// Represents a contact.
+    /// </summary>
     public class Contact
     {
         public static readonly string TelephoneNumberRegex = @"^\+\d{10,12}$";

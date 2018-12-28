@@ -1,12 +1,12 @@
 <h2>Search contacts</h2>
 
 <table class="table">
-  <thead class="thead-light">
+  <thead>
     <tr>
-      <th scope="col">First name</th>
-      <th scope="col">Last name</th>
-      <th scope="col">Telephone</th>
-      <th scope="col">Full address</th>
+      <th scope="col"><a (click)="onSort('FirstName',$event)" class="btn btn-light">First name</a></th>
+      <th scope="col"><a (click)="onSort('LastName',$event)" class="btn btn-light">Last name</a></th>
+      <th scope="col"><a (click)="onSort('TelephoneNumber',$event)" class="btn btn-light">Telephone number</a></th>
+      <th scope="col"><a (click)="onSort('FullAddress',$event)" class="btn btn-light">Full address</a></th>
       <th scope="col"></th>
       <th scope="col"></th>
     </tr>
@@ -32,7 +32,7 @@
 </table>
 
 <nav>
-  <ul class="pagination">    
+  <ul class="pagination">
     <li class="page-item"><button class="page-link" (click)="previousPage()" [disabled]="isPreviousDisabled()">Previous</button></li>
     <li class="page-item"><button class="page-link" (click)="nextPage()" [disabled]="isNextDisabled()">Next</button></li>
   </ul>

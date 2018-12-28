@@ -3,6 +3,9 @@ using System.Text;
 
 namespace ContactOrganizer
 {
+    /// <summary>
+    /// A simple implementation of IContactAddress interface using string fields.
+    /// </summary>
     public class ContactAddress : IContactAddress
     {
         private string _streetAndNumber;

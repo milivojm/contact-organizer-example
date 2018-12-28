@@ -84,7 +84,7 @@ namespace ContactOrganizer
         /// <param name="address">Address to search for.</param>
         /// <param name="takeFrom">Contact result row number to start list from. Useful in paginations. </param>
         /// <param name="count">Number of contacts to retreive.</param>
-        /// <param name="sortExpression">Contact property to order results by.</param>
+        /// <param name="sortExpression">Contact property to order results by. Accepts values: FirstName, LastName, TelephoneNumber, FullAddress.</param>
         /// <param name="totalNumber">Returns total number of contacts in the organizer.</param>
         /// <returns></returns>
         public List<Contact> FindContacts(string firstName, string lastName, string telephoneNumber, string address, int takeFrom, int count, string sortExpression, out int totalNumber)
